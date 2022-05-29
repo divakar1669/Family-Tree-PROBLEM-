@@ -1,0 +1,452 @@
+
+import java.util.*;
+
+class family
+
+{
+    String name; String gender; String father;  String mother;
+    
+   public family(String name,String gender,String father, String mother)
+    {
+        this.name = name;
+        this.gender = gender;
+        this.father = father;
+        this.mother = mother;
+    }
+
+}
+ 
+
+public class Main
+{
+
+    static String father(String n,family [] f)
+
+    {
+
+        String dad="";
+        for(int i=0;i<f.length;i++)
+        {
+            if(f[i].name.equals(n))
+            {
+                dad=f[i].father;
+            }
+        }
+        //String dad1=f.n.father;
+        return dad;
+    }
+
+   
+
+    static String Mother(String n,family [] f)
+    {
+        String mom="";
+        for(int i=0;i<f.length;i++)
+        {
+            if(f[i].name.equals(n))
+            {
+                mom=f[i].mother;
+            }
+        }
+        return mom;
+    }
+
+   
+
+   
+
+    static ArrayList<String> sister(String n,family [] f)
+
+    {
+
+        String dad=father(n,f);
+
+       
+        ArrayList <String> sis = new ArrayList<String>();
+
+       
+
+        for(int i=0;i<f.length;i++)
+
+        {
+
+            if(  f[i].father.equals(dad) && f[i].gender.equals("female") &&  (!f[i].name.equals(n))  )
+
+            {
+
+                sis.add(f[i].name);
+
+            }
+
+        }
+
+       
+
+        return sis;
+
+    }
+
+   
+
+    static ArrayList<String> brother(String n,family [] f)
+
+    {
+
+        String dad=father(n,f);
+
+        for(int i=0;i<f.length;i++)
+
+        {
+
+            if(f[i].name.equals(n))
+
+            {
+
+                dad=f[i].father;
+
+            }
+
+        }
+
+       
+
+        ArrayList <String> bro = new ArrayList<String>();
+
+       
+
+        for(int i=0;i<f.length;i++)
+
+        {
+
+            if(f[i].father.equals(dad) && f[i].gender.equals("male") && (!f[i].name.equals(n)))
+
+            {
+
+                bro.add(f[i].name);
+
+            }
+
+        }
+
+       
+
+        return bro;
+
+    }
+
+   
+
+    static ArrayList <String> daughter(String parent,family[] f)
+
+    {
+
+        ArrayList <String> d = new ArrayList <String>();
+
+       
+
+        for(int i=0;i<f.length;i++)
+
+        {
+
+            if( f[i].gender.equals("female") && (  f[i].mother.equals(parent) || f[i].father.equals(parent) ))
+
+            {   d.add(f[i].name);    }
+
+        }
+
+       
+
+        //System.out.println(d);
+
+        return d;
+
+    }
+
+   
+
+   
+
+    static ArrayList <String> son(String parent,family[] f)
+
+    {
+
+        ArrayList <String> d = new ArrayList <String>();
+
+       
+
+        for(int i=0;i<f.length;i++)
+
+        {
+
+            if( f[i].gender.equals("male") && (  f[i].mother.equals(parent) || f[i].father.equals(parent) ))
+
+            {   d.add(f[i].name);    }
+
+        }
+
+       
+
+        //System.out.println(d);
+
+        return d;
+
+    }
+
+   
+
+   
+
+   
+
+    static void pairs(String s ,String gen, family [] f)
+
+    {
+
+        String dad= father(s,f);
+
+    //System.out.println(dad);
+
+   
+
+    String mom= Mother(s,f);
+
+    //System.out.println(mom);
+
+   
+
+    ArrayList <String> MomsBrother =brother(mom,f);
+
+    ArrayList <String> DadsSister =sister(dad,f);
+
+   
+
+    //System.out.println(MomsBrother);
+
+   
+
+    //System.out.println(DadsSister);
+
+   
+
+    ArrayList <String> pair = new ArrayList <String>();
+
+    //System.out.println(pair);
+
+    int j=0;
+
+    if(gen.equals("male"))
+
+    {
+
+                    while(j<DadsSister.size())
+
+                {
+
+                    String a= DadsSister.get(j);
+
+                    System.out.println(a);
+
+                    ArrayList <String> q = daughter(a,f);
+
+                   // System.out.println(q);
+
+                    pair.addAll(q);
+
+                    // System.out.println(pair);
+
+                    j++;
+
+                }
+
+               
+
+                //System.out.println(pair);
+
+               
+
+                j=0;
+
+                while(j<MomsBrother.size())
+
+                {
+
+                    String a= MomsBrother.get(j);
+
+                   // System.out.println(a);
+
+                    ArrayList <String> q = daughter(a,f);
+
+                    pair.addAll(q);
+
+                    //System.out.println(pair);
+
+                    j++;
+
+                }
+
+       
+
+    }
+
+    else if(gen.equals("female"))
+
+    {
+
+                    while(j<DadsSister.size())
+
+                {
+
+                    String a= DadsSister.get(j);
+
+                    System.out.println(a);
+
+                    ArrayList <String> q = son(a,f);
+
+                   // System.out.println(q);
+
+                    pair.addAll(q);
+
+                    // System.out.println(pair);
+
+                    j++;
+
+                }
+
+               
+
+                //System.out.println(pair);
+
+               
+
+                j=0;
+
+                while(j<MomsBrother.size())
+
+                {
+
+                    String a= MomsBrother.get(j);
+
+                    System.out.println(a);
+
+                    ArrayList <String> q = son(a,f);
+
+                    pair.addAll(q);
+
+                    //System.out.println(pair);
+
+                    j++;
+
+                }
+
+    }
+
+   
+
+   
+
+   
+
+    System.out.println("Matching pairs of "+ s +" are "+pair);
+
+    }
+
+   
+
+    static void pr(family  [] f)
+
+    {
+
+        for(int i=0;i<f.length;i++)
+
+        {
+
+            System.out.println(f[i].name +" "+f[i].gender +" "+f[i].father +" "+f[i].mother +" ");
+
+        }
+
+    }
+
+   
+
+public static void main(String[] args)
+
+{
+
+   
+
+    Scanner sc =new Scanner(System.in);
+
+    family[] f =new family[14];
+
+   
+
+    /*
+
+    for(int i=0;i<5;i++)
+
+    {
+
+        String name=sc.nextLine();
+
+        String gender=sc.nextLine();
+
+        String father=sc.nextLine(); 
+
+        String mother=sc.nextLine();
+
+        f[i]= new family(name,gender,father,mother);
+
+    }
+
+    */
+
+     f[0] =new family("John", "male", "Brad","Lisa");
+
+         f[1] =new family("Emma", "female", "Brad", "Lisa");
+
+         f[2] =new family("Alex", "male", "John", "Jenny");
+
+         f[3] =new family("Emily", "female", "Steve", "Emma");
+
+         f[4] =new family("Rachel", "female", "Steve", "Emma");
+
+         f[5] =new family("Ramya", "female", "Steve", "Emma");
+
+         f[6] =new family("Luni", "female", "Steve", "Emma");
+
+         f[7] =new family("Fleix", "male", "John", "Jenny");
+
+         f[8] =new family("Fransis", "male", "John", "Jenny");
+
+         f[9] =new family("Jenny", "female", "Gudress", "gabby");
+
+         f[10] =new family("Jadahav", "male", "Gudress", "gabby");
+
+         f[11] =new family("Javir", "male", "Gudress", "gabby");
+
+         f[12] =new family("Gudy", "female", "Jadahav", "prithi");
+
+         f[13] =new family("Rani", "female", "Javir", "paddy");
+
+       
+
+   
+
+
+ 
+
+    pairs("Ramya","female",f);
+
+    pairs("Fleix","male",f);
+
+    pairs("Alex","male",f);
+
+ 
+
+    }
+
+}
+
+
+
+
